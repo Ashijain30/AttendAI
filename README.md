@@ -1,4 +1,4 @@
-1. Prerequisites
+ 1. Prerequisites
 Ensure you have Python installed, then install the required dependencies:
 
 pip install opencv-python face-recognition pyttsx3 python-docx numpy
