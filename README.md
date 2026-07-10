@@ -1,24 +1,56 @@
- 1. Prerequisites
-Ensure you have Python installed, then install the required dependencies:
+# 🎥 AttendAI — Real-Time Facial Recognition Attendance System
 
+A real-time attendance system that uses facial recognition via webcam to automatically 
+detect, recognize, and log attendance — eliminating manual roll calls and enabling 
+contactless, fast, and accurate tracking.
+
+## 🔧 Tech Stack
+- **Language:** Python
+- **Computer Vision:** OpenCV, face-recognition library
+- **Database:** SQLite
+- **Voice Feedback:** pyttsx3
+- **Reporting:** python-docx (auto-generated Word reports), CSV export
+
+## ✨ Features
+- **Real-time face detection & recognition** via webcam
+- **Two registration modes:**
+  - Manual: capture via webcam or upload photo through a GUI (`register.py`)
+  - Bulk: enroll multiple users at once from a folder of images (`bulk_register.py`)
+- **Voice welcome message** on successful recognition (via pyttsx3)
+- **Automatic attendance logging** to a SQLite database with timestamps
+- **Auto-generated daily CSV attendance reports**
+- **One-click professional Word report generation** summarizing the project (`generate_report.py`)
+
+## 🚀 How It Works
+1. Users are registered (manually or in bulk) — their face is encoded and stored 
+   (`encodings.pickle`) along with their details in the SQLite database
+2. `main.py` starts the webcam and continuously matches live faces against stored encodings
+3. On a match, the system marks the user "Present" in the database and plays a voice greeting
+4. On exit, a daily CSV attendance report is automatically generated and opened
+5. A professional Word document summarizing the system can be generated anytime via `generate_report.py`
+
+## 🖥️ Setup & Usage
+
+**1. Install dependencies:**
+```bash
 pip install opencv-python face-recognition pyttsx3 python-docx numpy
+```
 
+**2. Register users:**
+- Manual: `python register.py` (webcam capture or image upload via GUI)
+- Bulk: place images in a folder and run `python bulk_register.py`
 
-
-2- Registering Users
-You have two ways to add people to the system:
-- **Manual Registration:** Run `python register.py` to open the GUI. You can capture a photo via webcam or upload an existing image.
-- **Bulk Registration:** Place images in a folder and use `bulk_register.py` to enroll many users at once.
-
-3. Running the System
-Start the main recognition engine:bash
+**3. Run the system:**
+```bash
 python main.py
+```
+The webcam opens; recognized faces are marked present with a voice welcome. 
+Press `q` to exit — a daily CSV report is auto-generated.
 
-The webcam will open. When a face is recognized:
-1. The system marks "Present" in the database.
-2. A voice message welcomes the user.
-3. On closing (press `q`), a daily CSV report is automatically generated and opened.
+**4. Generate reports:**
+- Daily CSV: auto-created by `main.py`, or manually via `python export_attendance.py`
+- Full project report (Word doc): `python generate_report.py`
 
- 4. Generating Reports
-- **Daily CSV:** Automatically created by `main.py` or manually via `python export_attendance.py`.
-- **Project Report:** Run `python generate_report.py` to generate a professional Word document summary of the project.
+## 📌 Future Improvements
+- Add liveness detection to prevent spoofing via photos
+- Web-based dashboard for viewing attendance trends over time
